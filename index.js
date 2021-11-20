@@ -1,20 +1,26 @@
 const express = require("express");
-
-const trackingTokenService = require("./services/trackingToken.service");
-
 require("dotenv").config();
 
-const app = express();
-const PORT = process.env.PORT;
+const { trackingTokenService } = require("./services/trackingToken.service");
+const getPriceByPairService = require("./services/getPriceByPair.service");
+const TelegramService = require("./services/telegram.service");
 
-// respond with "hello world" when a GET request is made to the homepage
-app.get("/", function (req, res) {
+const { URI } = require("./constants");
+
+const app = express();
+
+app.use(express.json());
+
+app.get("/ping", function (req, res) {
   res.send(":)");
 });
+app.get("/tracking/:pair", trackingTokenService);
 
-// tracking follow pair :token-usdc
-app.get("/tracking", trackingTokenService);
+// telegram
+app.post(URI, getPriceByPairService);
 
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+new TelegramService().init();
+
+app.listen(process.env.PORT, () => {
+  console.log(`Crawler-krx listening at http://localhost:${process.env.PORT}`);
 });
