@@ -90,17 +90,18 @@ const trackingTokenRealtimeService = async (req, res) => {
   if (!base || !quote) return res.send("404");
   try {
     const data = await crawlerPriceByPair(base, quote);
+    const currentPrice = parseFloat(data).toFixed(2) || 0;
     console.log(new Date().toString(), "GROUP_REALTIME PRICE", data);
 
-    if (data === latestPrice) return;
-    latestPrice = data;
+    if (currentPrice === latestPrice) return;
+    latestPrice = currentPrice;
 
-    matchUserConfig(data);
+    matchUserConfig(currentPrice);
 
     const telegramService = new TelegramService();
     return telegramService.sendMessage({
       chat_id: GROUP_REALTIME,
-      text: data,
+      text: currentPrice,
     });
   } catch (err) {
     console.error(new Date(), "Error in auto tracking");
