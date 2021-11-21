@@ -92,7 +92,7 @@ const trackingTokenRealtimeService = async (req, res) => {
   try {
     const data = await crawlerPriceByPair(base, quote);
     const currentPrice = parseFloat(data).toFixed(DECIMAL) || 0;
-    if (currentPrice === latestPrice || !currentPrice) return;
+    if (currentPrice === latestPrice || !data) return;
     console.log("GROUP_REALTIME PRICE", currentPrice, new Date().toString());
 
     latestPrice = currentPrice;
