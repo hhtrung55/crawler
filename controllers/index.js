@@ -2,6 +2,7 @@ const {
   GET_PRICE_CONFIG,
   UPDATE_PRICE_CONFIG,
 } = require("../constants/actions");
+const getAllUsersConfig = require("../handlers/getAllUsersConfig");
 const getUserConfig = require("../handlers/getUserConfig");
 const updateUserConfig = require("../handlers/updateUserConfig");
 const getPriceByPairService = require("../services/getPriceByPair.service");
@@ -18,6 +19,8 @@ const webhookTelegram = (req, res) => {
     getUserConfig(message);
   } else if (text.includes(UPDATE_PRICE_CONFIG)) {
     updateUserConfig(message);
+  } else if (text === "/all") {
+    getAllUsersConfig(message);
   } else {
     getPriceByPairService(message);
   }
