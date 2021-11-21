@@ -5,7 +5,7 @@
   "author": "trung.hoang <trunghoang.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "nodemon --max-old-space-size=8192 ./index.js"
   },
   "dependencies": {
     "axios": "0.24.0",

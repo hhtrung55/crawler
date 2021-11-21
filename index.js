@@ -1,7 +1,10 @@
 const express = require("express");
 require("dotenv").config();
 
-const { trackingTokenService } = require("./services/trackingToken.service");
+const {
+  trackingTokenService,
+  trackingTokenRealtimeService,
+} = require("./services/trackingToken.service");
 const getPriceByPairService = require("./services/getPriceByPair.service");
 const TelegramService = require("./services/telegram.service");
 
@@ -15,6 +18,8 @@ app.get("/ping", function (req, res) {
   res.send(":)");
 });
 app.get("/tracking/:pair", trackingTokenService);
+
+app.get("/realtime/:pair", trackingTokenRealtimeService);
 
 // telegram
 app.post(URI, getPriceByPairService);
