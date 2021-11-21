@@ -1,0 +1,13 @@
+{
+  "name": "tq21-bot",
+  "cwd": "/home/ubuntu/crawler",
+  "script": "npm run start",
+  "env": {
+    "TOKEN": "2128593611:AAFy-rdS3TnZIjXbUCG0aBcLyjNZBS7iPns",
+    "SERVER_URL": "https://trungbk.ga",
+    "MONGODB_PROD": "mongodb+srv://admin:j7iD4EWQumRjw9X@cluster0.ziyrd.mongodb.net/crawler-krx",
+    "MONGODB_DEV": "mongodb+srv://admin:j7iD4EWQumRjw9X@cluster0.ziyrd.mongodb.net/tq-21",
+    "MODE": "production",
+    "PORT": 6001
+  }
+}

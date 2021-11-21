@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer");
+const matchUserConfig = require("../handlers/matchUserConfig");
+
 const TelegramService = require("./telegram.service");
 
 const KRX_URL = "https://www.kryptodex.org/swap";
@@ -65,7 +67,7 @@ const trackingTokenService = async (req, res) => {
   const telegramService = new TelegramService();
   const GROUP_ID = "-714416156";
   let lt = 1.2;
-  let gt = 2.0;
+  let gt = 1.6;
   console.log("price", data);
   if (!Number(data)) return;
   if (data < gt && data > lt) return;
@@ -80,16 +82,22 @@ const trackingTokenService = async (req, res) => {
   }
 };
 
+let latestPrice = 0;
+
 const trackingTokenRealtimeService = async (req, res) => {
-  console.log(`GROUP_REALTIME at: ${new Date().toString()}`);
   res.send("ok");
   const [base, quote] = req.params.pair.split("-").map((e) => e.toUpperCase());
-  if (!base || !quote) return res.sendStatus(404);
-  const data = await crawlerPriceByPair(base, quote);
-  const telegramService = new TelegramService();
-  console.log("GROUP_REALTIME PRICE", data);
+  if (!base || !quote) return res.send("404");
   try {
     const data = await crawlerPriceByPair(base, quote);
+    console.log(new Date().toString(), "GROUP_REALTIME PRICE", data);
+
+    if (data === latestPrice) return;
+    latestPrice = data;
+
+    matchUserConfig(data);
+
+    const telegramService = new TelegramService();
     return telegramService.sendMessage({
       chat_id: GROUP_REALTIME,
       text: data,

@@ -1,5 +1,4 @@
-const secretToken =
-  process.env.MODE === "production" ? process.env.TOKEN : process.env.TOKEN_DEV;
+const secretToken = process.env.TOKEN;
 
 const TELEGRAM_API = `https://api.telegram.org/bot${secretToken}`;
 const URI = `/webhook/${secretToken}`;

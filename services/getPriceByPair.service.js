@@ -1,18 +1,7 @@
-const ConfigRepo = require("../repository/config.repo");
 const TelegramService = require("./telegram.service");
 const { crawlerPriceByPair } = require("./trackingToken.service");
-// /bnb-busd
-const getPriceByPairService = async (req, res) => {
-  res.sendStatus(200);
-  const { message } = req.body;
-  const { chat, text, from } = message;
 
-  console.log({
-    text,
-    chat,
-    from,
-  });
-
+const getPriceByPairService = async ({ chat, text, from }) => {
   if (text[0] !== "/") return;
   const [base, quote] = text
     .slice(1)
