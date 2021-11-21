@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-let mongoUrl = process.env.MONGODB_DEV;
-
-if (process.env.MODE !== "development") {
-  mongoUrl = process.env.MONGODB_PROD;
-}
+let mongoUrl = process.env.MONGODB;
 
 console.log("mongoUrl", mongoUrl);
 
