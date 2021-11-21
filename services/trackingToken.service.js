@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 const matchUserConfig = require("../handlers/matchUserConfig");
 
 const TelegramService = require("./telegram.service");
+const DECIMAL = 3;
 
 const KRX_URL = "https://www.kryptodex.org/swap";
 const GROUP_REALTIME = "-680679758";
@@ -90,10 +91,10 @@ const trackingTokenRealtimeService = async (req, res) => {
   if (!base || !quote) return res.send("404");
   try {
     const data = await crawlerPriceByPair(base, quote);
-    const currentPrice = parseFloat(data).toFixed(2) || 0;
-    console.log(new Date().toString(), "GROUP_REALTIME PRICE", data);
-
+    const currentPrice = parseFloat(data).toFixed(DECIMAL) || 0;
     if (currentPrice === latestPrice) return;
+    console.log("GROUP_REALTIME PRICE", currentPrice, new Date().toString());
+
     latestPrice = currentPrice;
 
     matchUserConfig(currentPrice);
