@@ -91,9 +91,9 @@ const trackingTokenRealtimeService = async (req, res) => {
   if (!base || !quote) return res.send("404");
   try {
     const data = await crawlerPriceByPair(base, quote);
-    const currentPrice = parseFloat(data).toFixed(DECIMAL) || 0;
-    if (currentPrice === latestPrice || !data) return;
-    console.log("GROUP_REALTIME PRICE", currentPrice, new Date().toString());
+    const currentPrice = parseFloat(data).toFixed(DECIMAL);
+    if (currentPrice === latestPrice || !Number(data) || data === "0") return;
+    console.log("GROUP_REALTIME PRICE", data, new Date().toString());
 
     latestPrice = currentPrice;
 
