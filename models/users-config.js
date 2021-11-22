@@ -4,6 +4,10 @@ const schema = new mongoose.Schema(
   {
     top: Number,
     down: Number,
+    loop: {
+      type: Number,
+      default: 5,
+    },
     user: {
       id: Number,
       first_name: String,

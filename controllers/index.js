@@ -1,14 +1,16 @@
 const {
   GET_PRICE_CONFIG,
   UPDATE_PRICE_CONFIG,
+  LOOP_NOTIFICATION,
 } = require("../constants/actions");
 const getAllUsersConfig = require("../handlers/getAllUsersConfig");
 const getUserConfig = require("../handlers/getUserConfig");
 const updateUserConfig = require("../handlers/updateUserConfig");
 const getPriceByPairService = require("../services/getPriceByPair.service");
+const updateLoopNotification = require("../handlers/updateLoopNotification");
 
 const webhookTelegram = (req, res) => {
-  res.sendStatus(200);
+  res.status(200);
   const { message } = req.body;
   const { chat, text, from } = message;
 
@@ -21,6 +23,8 @@ const webhookTelegram = (req, res) => {
     updateUserConfig(message);
   } else if (text === "/all") {
     getAllUsersConfig(message);
+  } else if (text.includes(LOOP_NOTIFICATION)) {
+    updateLoopNotification(message);
   } else {
     getPriceByPairService(message);
   }

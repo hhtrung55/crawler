@@ -17,11 +17,29 @@ class TelegramService {
     }
   };
 
-  sendMessage = async ({ chat_id, text }) => {
-    return await axios.post(`${TELEGRAM_API}/sendMessage`, {
-      chat_id,
-      text,
+  sleep = (ms = 1000) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
     });
+  };
+
+  sendMessage = async ({ chat_id, text }, loop = 1) => {
+    if (!loop || loop <= 1) {
+      return await axios.post(`${TELEGRAM_API}/sendMessage`, {
+        chat_id,
+        text,
+      });
+    }
+
+    for (let i = 1; i <= loop; i++) {
+      await axios.post(`${TELEGRAM_API}/sendMessage`, {
+        chat_id,
+        text,
+      });
+      await this.sleep(1500);
+    }
   };
 }
 
