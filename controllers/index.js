@@ -1,3 +1,5 @@
+const dayjs = require("dayjs");
+
 const {
   GET_PRICE_CONFIG,
   UPDATE_PRICE_CONFIG,
@@ -10,13 +12,13 @@ const getPriceByPairService = require("../services/getPriceByPair.service");
 const updateLoopNotification = require("../handlers/updateLoopNotification");
 
 const webhookTelegram = (req, res) => {
-  res.status(200);
+  res.sendStatus(200);
   const { message } = req.body;
   const { chat, text, from } = message;
 
-  console.log("webhook", message);
+  console.log("\n\n", dayjs().format("DD/MM HH:mm:ss"), message);
 
-  if (text[0] !== "/") return;
+  if (!text || text[0] !== "/") return;
   if (text === GET_PRICE_CONFIG) {
     getUserConfig(message);
   } else if (text.includes(UPDATE_PRICE_CONFIG)) {

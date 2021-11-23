@@ -1,8 +1,19 @@
 curl localhost:6001/realtime/krx-usdc
-sleep 20
+sleep 30
 
 curl localhost:6001/realtime/krx-usdc
-sleep 20
+# sleep 10
 
-curl localhost:6001/realtime/krx-usdc
-sleep 20
+# curl localhost:6001/realtime/krx-usdc
+# sleep 10
+
+# curl localhost:6001/realtime/krx-usdc
+# sleep 10
+
+# curl localhost:6001/realtime/krx-usdc
+# sleep 10
+
+# curl localhost:6001/realtime/krx-usdc
+
+
+

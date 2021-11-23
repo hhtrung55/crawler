@@ -8,7 +8,7 @@ const getUserConfig = async ({ chat }) => {
   await telegramService.sendMessage({
     chat_id: chat.id,
     text: user
-      ? JSON.stringify({ top: user.top, down: user.down })
+      ? JSON.stringify({ top: user.top, down: user.down, loop: user.loop })
       : "Not config yet",
   });
 };
