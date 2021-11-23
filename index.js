@@ -8,6 +8,7 @@ const {
 
 const TelegramService = require("./services/telegram.service");
 const switchController = require("./controllers/index");
+const initLoop = require("./handlers/initLoop");
 
 const { URI } = require("./constants");
 
@@ -27,6 +28,8 @@ app.get("/realtime/:pair", trackingTokenRealtimeService);
 app.post(URI, switchController);
 
 new TelegramService().init();
+
+initLoop();
 
 app.listen(process.env.PORT, () => {
   console.log(`Crawler-krx listening at http://localhost:${process.env.PORT}`);
