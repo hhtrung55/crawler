@@ -19,7 +19,7 @@ const updateUserConfig = async ({ chat, text }) => {
         setDefaultsOnInsert: true,
       }
     ).lean();
-    message = "update successful";
+    message = `top = ${top}, down = ${down} updated`;
   }
   const telegramService = new TelegramService();
   await telegramService.sendMessage({

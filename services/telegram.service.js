@@ -36,7 +36,7 @@ class TelegramService {
     for (let i = 1; i <= loop; i++) {
       await axios.post(`${TELEGRAM_API}/sendMessage`, {
         chat_id,
-        text,
+        text: `REMIND ${i}/${loop}: ${text}`,
       });
       await this.sleep(1500);
     }
